@@ -10,9 +10,8 @@ seattle_precipitation = []
 for seattle in precipitation_data:
     if seattle['station'] == 'GHCND:US1WAKG0038':
         seattle_precipitation.append(seattle)
-print(seattle_precipitation)
 
-# 1.3 Calculating total monthly precipitation
+# 1.3 Total monthly precipitation
 total_monthly_precipitation = {}
  
 for measurement in seattle_precipitation:
@@ -21,19 +20,34 @@ for measurement in seattle_precipitation:
         monthly_precipitation = 0
     monthly_precipitation += measurement['value']
     total_monthly_precipitation[month] = monthly_precipitation
-print(total_monthly_precipitation)
-
 list_precipitation_monthly = list(total_monthly_precipitation.values())
-print(list)
+print(f'Monthy Precipitation: {list_precipitation_monthly}')
 
-# 1.4 Saving results as JSON file
+# 2.1 Total yearly precipitation
+yearly_precipitation = 0
+
+for month in total_monthly_precipitation:
+    precipitation_per_month = total_monthly_precipitation[month]
+    yearly_precipitation += precipitation_per_month
+print(f'Yearly Precipitation: {yearly_precipitation}')
+
+# 2.2 Relative monthly precipitation
+relative_monthly_precipitation = {}
+
+for month in total_monthly_precipitation:
+    relative_value = total_monthly_precipitation[month] / yearly_precipitation
+    relative_monthly_precipitation[month] = relative_value
+list_relative_monthly_precipitation = list(relative_monthly_precipitation.values())
+print(f'Relative monthly precipitation: {list_relative_monthly_precipitation}')
+
+# Saving results as JSON file
 results = {}
 results['Seattle'] = {
     'station': 'GHCND:USW00093814',
     'state': 'OH',
     'total_monthly_precipitation': list_precipitation_monthly,
-    'total_yearly_precipitation': 0,
-    'relative_monthly_precipitation': [0] *12,
+    'total_yearly_precipitation': yearly_precipitation,
+    'relative_monthly_precipitation': list_relative_monthly_precipitation,
     'relative_yearly_precipitation': 0
 }
 
