@@ -14,26 +14,24 @@ print(seattle_precipitation)
 
 # 1.3 Calculating total monthly precipitation
 total_monthly_precipitation = {}
-monthly_precipitation = 0
-month = 0 
-
-while month < 12:
-    month += 1
-    monthly_precipitation = 0
-    for measurement in seattle_precipitation:
-        year, month, day = measurement['date'].split('-') 
-        if date_split[1] == month:
-            monthly_precipitation += measurement['value']
-    total_monthly_precipitation.append(monthly_precipitation)
+ 
+for measurement in seattle_precipitation:
+    year, month, day = measurement['date'].split('-') 
+    if month not in total_monthly_precipitation:
+        monthly_precipitation = 0
+    monthly_precipitation += measurement['value']
+    total_monthly_precipitation[month] = monthly_precipitation
 print(total_monthly_precipitation)
 
+list_precipitation_monthly = list(total_monthly_precipitation.values())
+print(list)
 
 # 1.4 Saving results as JSON file
 results = {}
 results['Seattle'] = {
     'station': 'GHCND:USW00093814',
     'state': 'OH',
-    'total_monthly_precipitation': total_monthly_precipitation,
+    'total_monthly_precipitation': list_precipitation_monthly,
     'total_yearly_precipitation': 0,
     'relative_monthly_precipitation': [0] *12,
     'relative_yearly_precipitation': 0
