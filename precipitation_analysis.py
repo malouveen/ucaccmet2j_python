@@ -1,11 +1,49 @@
 #Import necesarry packages
 import json
 
-# Opening and reading the file
+# Opening and reading the files
 with open('precipitation.json') as file:  
-    precipitation_data = json.load(file)                               
+    precipitation_data = json.load(file)     
 
-# 1.2 Selecting the measurements belonging to Seattle data
+# with open('station.csv')'
+          
+#           for mine in fole 
+#           split by comma 
+
+# Creating a dictionary with {Station:Code}
+
+
+station_dictionary = {
+    'Cincinnati': {
+        'station': 'GHCND:USW00093814',
+        'state': 'OH'
+    },
+    'Seattle': {
+        'station': 'GHCND:US1WAKG0038',
+        'state': 'WA'
+    },
+    'Maui': {
+        'station': 'GHCND:USC00513317',
+        'state': 'HI'
+    },
+    'San Diego': {
+        'station': 'GHCND:US1CASD0032',
+        'state': 'CA'
+    }
+}
+
+for location in station_dictionary:
+    location_dictionary = station_dictionary[location]
+    station = location_dictionary['station']
+    state = location_dictionary['state']
+    print(state)
+
+if location not in station_dictionary:
+    station_dictionary = 0
+    station_dictionary[location] = location
+
+
+# # 1.2 Selecting the measurements belonging to Seattle data
 seattle_precipitation = []
 for seattle in precipitation_data:
     if seattle['station'] == 'GHCND:US1WAKG0038':
